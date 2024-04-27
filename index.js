@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
+const cors = require("cors");
 const excelRoute = require("./route/file-upload.route");
 
 const app = express();
@@ -9,7 +10,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use("/", excelRoute);
+app.use(cors());
+app.use("/api/", excelRoute);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
